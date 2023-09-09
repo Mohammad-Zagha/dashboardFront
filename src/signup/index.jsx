@@ -45,7 +45,7 @@ export default function SignUp() {
     };
 
     try {
-      const response = await axios.post(`${process.env.BASE_URL}/log/signup`, User);
+      const response = await axios.post(`http://13.49.44.225:4000/log/signup`, User);
       setSuccessMessage('تم التسجيل بنجاح!'); // Set success message if signup is successful
       setErrorMessage(''); // Clear any previous error messages
     } catch (error) {
