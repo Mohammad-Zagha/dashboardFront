@@ -52,7 +52,7 @@ export default function SignInSide() {
       setErrorMessage('');
       
       // Reload the page
-      window.location.reload();
+     
     } catch (error) {
       // Handle the error and set the error message
       console.error('Error:', error);
