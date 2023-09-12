@@ -7,7 +7,7 @@ const test=async()=>{
 function Test() {
   return (
     <div>
-          
+          {test()}
 
     </div>
   )
