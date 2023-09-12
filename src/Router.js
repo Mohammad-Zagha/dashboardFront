@@ -13,6 +13,7 @@ import Login from "./scence/login";
 import SignUp from "./signup";
 import { useContext } from 'react';
 import AuthContext from './context/AuthContext';
+import Test from './scence/login/Test';
 function Router() {
   const AuthData = useContext(AuthContext);
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Router() {
            
             
             <Routes>
-                   
+            <Route path="/test" element={<Test></Test>}></Route>
             <Route path="/login" element={!AuthData.loggedIn?<Login/>:<Navigate to="/"/>}></Route>
             <Route path="/signup" element={!AuthData.loggedIn?<SignUp/>:<Navigate to="/"/>}></Route>
               <Route path="/" element={AuthData.loggedIn?<Dashboard/>:<Navigate to="/login"/>}></Route>
