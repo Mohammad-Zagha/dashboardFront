@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 
-import { useNavigate } from 'react-router-dom';
+
 
 
 function Copyright(props) {
@@ -29,7 +29,7 @@ const defaultTheme = createTheme();
 const img="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
 export default function SignInSide() {
   const [errorMessage, setErrorMessage] = React.useState('');
-  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,16 +45,14 @@ export default function SignInSide() {
         password: data.get('password'),
       });
 
-      // Handle successful response (if needed)
-      console.log(response);
-
-      // Clear any previous error messages
-      setErrorMessage('');
+      localStorage.setItem('token', response.data.token);
+  
+      window.location.reload();
       
-      // Reload the page
+
      
     } catch (error) {
-      // Handle the error and set the error message
+  
       console.error('Error:', error);
       if (error.response && error.response.status === 400) {
         setErrorMessage('الرجاء التأكد من كلمة السر والإيميل');

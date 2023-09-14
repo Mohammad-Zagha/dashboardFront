@@ -19,7 +19,7 @@ import { useEditClient } from '../hooks/useClientMutation';
 const fetchData= async()=>{
  
   console.log("Fetching")
-  const response=await axios.get('/home/clients');
+  const response=await axios.get('https://13.49.44.225:4000/home/clients');
 
   if(response.statusText === "OK")
   {
@@ -81,7 +81,7 @@ function ProfileEdit() {
           if(selectedClient?.name === client.name)
           {
             setSelectedClient(client)
-            console.log(client)
+            
           }
         })
          
@@ -173,7 +173,7 @@ const phoneRegExp =
           selectedClient.status==="Active" ? colors.greenAccent[400] : selectedClient.status==="Frozen" ? colors.blueAccent[600] :selectedClient.status==="Canceld"? colors.redAccent[700] :  colors.redAccent[500]
         }
         >
-       {selectedClient.status}
+   {selectedClient.status === "Active"?"فعال":selectedClient.status ==="Frozen"?"مجمد":selectedClient.status === "Canceld"?"ملغي":"منتهي" }
           
         </Box>
         <Typography color={selectedClient.status === "Active"?colors.greenAccent[400]:selectedClient.status === "Frozen"?colors.blueAccent[300]:selectedClient.status === "Ended"?colors.redAccent[400]:colors.grey[100]}>{selectedClient.daysLeft}</Typography>

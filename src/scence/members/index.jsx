@@ -8,17 +8,31 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import dayjs from 'dayjs';
 
-const fetchData= async()=>{
- 
-  console.log("Fetching")
-  const response=await axios.get('/home/clients');
 
-  if(response.statusText === "OK")
-  {
-    return response.data;
+
+const fetchData = async () => {
+  try {
+    console.log("Fetching From Members");
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`, 
+    };
+
+    const response = await axios.get('https://13.49.44.225:4000/home/clients', {
+      headers,
+    });
+
+    if (response.status === 200) {
+      console.log(response.data);
+      return response.data;
+    } else {
+      console.log(response);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
   }
+};
 
-}
 
  function  Members() {
   console.log("Rendering Members")
@@ -34,15 +48,15 @@ const fetchData= async()=>{
 
   const columns = [
     {field:"id",headerName:"ID"},
-    {field:"name",headerName:"Name",flex:1}, 
-    {field:"email",headerName:"Email",flex:1},
-    {field:"age",headerName:"Age"},
-    {field:"phoneNumber",headerName:"Phone"},
-    {field:"weight",headerName:"Weight"},
-    {field:"startDate",headerName:"StartDate"},
-    {field:"endDate",headerName:"EndDate"},
-    {field:"daysLeft",headerName:"Days"},
-    {field:"status",headerName:"Status", renderCell:({row :{status}})=>{
+    {field:"name",headerName:"الاسم",flex:1}, 
+    {field:"email",headerName:"الايميل",flex:1},
+    {field:"age",headerName:"العمر"},
+    {field:"phoneNumber",headerName:"الرقم"},
+    {field:"weight",headerName:"الوزن"},
+    {field:"startDate",headerName:"تاريخ البداية"},
+    {field:"endDate",headerName:"تاريخ النهاية"},
+    {field:"daysLeft",headerName:"الايام المتبقية"},
+    {field:"status",headerName:"الحالة", renderCell:({row :{status}})=>{
      
       return(
         <Box
@@ -54,7 +68,7 @@ const fetchData= async()=>{
           status==="Active" ? colors.greenAccent[400] : status==="Frozen" ? colors.blueAccent[600] :status==="Canceld"? colors.redAccent[700] :  colors.redAccent[500]
         }
         >
-          {status}
+          {status === "Active"?"فعال":status ==="Frozen"?"مجمد":status === "Canceld"?"ملغي":"منتهي" }
           
         </Box>
       )
@@ -63,9 +77,9 @@ const fetchData= async()=>{
   ]
   const mobileColumns = [
     {field:"id",headerName:"ID"},
-    {field:"name",headerName:"Name"}, 
-    {field:"daysLeft",headerName:"Days"},
-    {field:"status",headerName:"Status", renderCell:({row :{status}})=>{
+    {field:"name",headerName:"الاسم"}, 
+    {field:"daysLeft",headerName:"الايام المتبقية"},
+    {field:"status",headerName:"الحالة", renderCell:({row :{status}})=>{
      
       return(
         <Box
@@ -77,7 +91,7 @@ const fetchData= async()=>{
           status==="Active" ? colors.greenAccent[400] : status==="Frozen" ? colors.blueAccent[600] :status==="Canceld"? colors.redAccent[700] :  colors.redAccent[500]
         }
         >
-          {status}
+          {status === "Active"?"فعال":status ==="Frozen"?"مجمد":status === "Canceld"?"ملغي":"منتهي" }
           
         </Box>
       )
@@ -96,7 +110,7 @@ const fetchData= async()=>{
   
    <Box m="10px" display="flex" flexDirection="column"  alignItems="center"> 
    
-    <Header title="Members" subtitle="Members Table"/>
+    <Header title="الاعضاء" subtitle="جدول الاعضاء"/>
 
     <Box
     m="10px 10px 0 10px"

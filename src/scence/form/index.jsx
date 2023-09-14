@@ -12,17 +12,29 @@ import dayjs from "dayjs";
 
 
 
-const fetchData= async()=>{
- 
-  console.log("Fetching")
-  const response=await axios.get('/home/clients');
+const fetchData = async () => {
+  try {
+    console.log("Fetching From Form");
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`, 
+    };
 
-  if(response.statusText === "OK")
-  {
-    return response.data;
+    const response = await axios.get('https://13.49.44.225:4000/home/clients', {
+      headers,
+    });
+
+    if (response.status === 200) {
+      console.log(response.data);
+      return response.data;
+    } else {
+      console.log(response);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
   }
+};
 
-}
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -41,7 +53,6 @@ const Form = () => {
   const {mutateAsync} = useAddClient();
   const handleFormSubmit = async(values) => {
     setSubButtonFlag(true);
-     console.log("here")
     values.startDate=date1;
     values.endDate=date2;
         const day1=dayjs(date1);
@@ -257,7 +268,7 @@ const checkoutSchema = yup.object().shape({
   contact: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
+    ,
 
 });
 const initialValues = {

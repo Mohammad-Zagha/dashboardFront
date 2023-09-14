@@ -1,17 +1,29 @@
 import axios from "axios";
 import { useMutation ,useQueryClient } from "react-query"
+const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+const addClientReq = async (client) => {
+  
 
-const addClientReq=async(client)=>
-{
- await axios.post('/home/add',client)
-}
+  try {
+    const response = await axios.post('https://13.49.44.225:4000/home/add', client, {
+      headers: headers,
+    });
+  } catch (error) {
+  }
+};
+
 
 
 const editClientReq= async({obj,path})=>
 {
   if(path==="addSub")
   {
-   await axios.patch(`/home/${path}`,obj)
+   await axios.patch(`https://13.49.44.225:4000/home/${path}`,obj, {
+    headers: headers,
+  })
   }
   if(path==="updateStatus")
   {
@@ -20,7 +32,9 @@ const editClientReq= async({obj,path})=>
      
       const status = obj.status
       
-     await axios.patch(`/home/${path}`,{name,status})
+     await axios.patch(`https://13.49.44.225:4000/home/${path}`,{name,status}, {
+      headers: headers,
+    })
     
   
   }
@@ -31,7 +45,9 @@ const editClientReq= async({obj,path})=>
      
       const frozenDays = obj.frozenDays;
  
-     await axios.patch(`/home/${path}`,{name,frozenDays})
+     await axios.patch(`https://13.49.44.225:4000/home/${path}`,{name,frozenDays}, {
+      headers: headers,
+    })
     
   
   }
@@ -40,14 +56,18 @@ const editClientReq= async({obj,path})=>
    
       const name = obj;
 
-     await axios.patch(`/home/${path}`,{name})
+     await axios.patch(`https://13.49.44.225:4000/home/${path}`,{name}, {
+      headers: headers,
+    })
     
   
   }
   if(path === "updateClientByName")
   {
     const updatedClient = obj;
-    await axios.patch(`/home/${path}`, updatedClient);
+    await axios.patch(`https://13.49.44.225:4000/home/${path}`, updatedClient, {
+      headers: headers,
+    });
   }
   
 

@@ -11,7 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import SearchBar from "../components/SearchBar";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 
 const Topbar = () => {
   console.log("Rendering Topbar")
@@ -22,12 +22,13 @@ const Topbar = () => {
 
 
 
-const handleLogout= async()=>{
-  await axios.post('/log/logout')
-  .then(
-    window.location.reload()
-  )
-}
+  const handleLogout =  () => {
+
+    localStorage.removeItem("token");
+  
+
+    window.location.reload();
+  };
 
   return (
  

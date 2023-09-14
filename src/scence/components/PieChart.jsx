@@ -7,17 +7,29 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { tokens } from '../../theme';
 
-const fetchData= async()=>{
- 
-  console.log("Fetching")
-  const response=await axios.get('/home/clients');
 
-  if(response.statusText === "OK")
-  {
-    return response.data;
+const fetchData = async () => {
+  try {
+    console.log("Fetching From Pie");
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`, 
+    };
+
+    const response = await axios.get('https://13.49.44.225:4000/home/clients', {
+      headers,
+    });
+
+    if (response.status === 200) {
+      console.log(response.data);
+      return response.data;
+    } else {
+      console.log(response);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
   }
-
-}
+};
 
 
 function PieChart({isDashboard}) {

@@ -17,24 +17,30 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import SubjectOutlinedIcon from '@mui/icons-material/SubjectOutlined';
 
-const fetchData= async()=>{
 
-  console.log("Fetching1")
-  const response=await axios.get(`/home/clients`);
-  console.log("here")
-  if(response.statusText === "OK")
-  {
+const fetchData = async () => {
+  try {
+    console.log("Fetching From Dashboard");
+    const token = localStorage.getItem("token");
+    const headers = {
+      Authorization: `Bearer ${token}`, 
+    };
 
-   
-    return response.data;
-   
+    const response = await axios.get('https://13.49.44.225:4000/home/clients', {
+      headers,
+    });
+
+    if (response.status === 200) {
+      console.log(response.data);
+      return response.data;
+    } else {
+      console.log(response);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
   }
-  else
-  {
-    console.log(response)
-  }
+};
 
-}
 
 const Dashboard = () => {
   const Authdata = useContext(AuthContext)
@@ -64,14 +70,14 @@ const Dashboard = () => {
   
   const {isError,isSuccess,isLoading,data:clients,error} = useQuery(
     ["clients"],
-    Authdata.loggedIn?fetchData:()=>{},
+    Authdata.loggedIn?fetchData:()=>null,
       {staleTime:Infinity}
   );
 
   const columns = [
-    { field: 'name', headerName: 'Name', flex: 1 },
-    { field: 'daysLeft', headerName: 'Days Left', flex: 1 },
-    {field:"status",headerName:"Status", flex:1, renderCell:({row :{status}})=>{
+    { field: 'name', headerName: 'الاسم', flex: 1 },
+    { field: 'daysLeft', headerName: 'الايام المتبقية', flex: 1 },
+    {field:"status",headerName:"الحالة", flex:1, renderCell:({row :{status}})=>{
      
       return(
         
@@ -84,7 +90,7 @@ const Dashboard = () => {
         justifyContent="center"
         backgroundColor={status === "Active"?"yellow":colors.redAccent[500]}
         >
-         <Typography color={colors.grey[800]}>{status}</Typography>
+         <Typography color={colors.grey[800]}>  {status === "Active"?"فعال":status ==="Frozen"?"مجمد":status === "Canceld"?"ملغي":"منتهي" }</Typography>
           
         </Box>
       )

@@ -21,17 +21,7 @@ import axios from 'axios';
 import { useAddClient } from '../../hooks/useClientMutation';
 
 
-const fetchData= async()=>{
- 
-  console.log("Fetching")
-  const response=await axios.get('/home/clients');
 
-  if(response.statusText === "OK")
-  {
-    return response.data;
-  }
-
-}
 
 export default function PopUp() {
   const [open, setOpen] = React.useState(false);
@@ -43,6 +33,33 @@ export default function PopUp() {
   const [date2,setDate2] = React.useState(new Date())
   const [subButtonFlag,setSubButtonFlag] = React.useState(false)
   const [open1, setOpen1] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
+
+
+
+  const fetchData = async () => {
+    try {
+      console.log("Fetching From Popup");
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`, 
+      };
+  
+      const response = await axios.get('https://13.49.44.225:4000/home/clients', {
+        headers,
+      });
+  
+      if (response.status === 200) {
+        console.log(response.data);
+        return response.data;
+      } else {
+        console.log(response);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+  
 
   
   const {isError,isSuccess,isLoading,data:clients,error} = useQuery(
@@ -72,7 +89,8 @@ const {mutateAsync} = useAddClient();
         const day2=dayjs(date2);
         const diff=Math.floor(day2.diff(day1)/1000/60/60/24)
 
-     
+        if(diff>0)
+        {
     const client={
       name:values.firstName,
       email:"test@gmail.com",
@@ -102,7 +120,11 @@ const {mutateAsync} = useAddClient();
       console.log(err)
       setSubButtonFlag(false);
   }
-  
+}
+else{
+setOpen2(true);
+setSubButtonFlag(false);
+}
 
  
 
@@ -123,6 +145,9 @@ const {mutateAsync} = useAddClient();
 const handleAlertClose=()=>{
   setOpen1(false)
 }
+const handleAlert2Close = () => {
+  setOpen2(false);
+};
   return (
    <>
     <Box>
@@ -263,6 +288,11 @@ const handleAlertClose=()=>{
         <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
      تم اضافة المشترك !   
         </Alert>
+      </Snackbar>
+      <Snackbar open={open2} autoHideDuration={6000} onClose={handleAlert2Close} sx={{ width: "300px" }} dir='ltr'>
+        <Alert onClose={handleAlertClose} severity="error" sx={{ width: '100%' }}>
+          يجب اختيار تاريخ اشتراك مناسب
+          </Alert>
       </Snackbar>
     </>
   );
