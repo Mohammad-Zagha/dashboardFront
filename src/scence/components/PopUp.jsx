@@ -88,7 +88,7 @@ const {mutateAsync} = useAddClient();
         const day1=dayjs(date1);
         const day2=dayjs(date2);
         const today = dayjs(new Date());
-        const diff=Math.floor(day2.diff(day1)/1000/60/60/24)
+        let diff=Math.floor(day2.diff(day1)/1000/60/60/24)
 
         if(diff>0)
         {
