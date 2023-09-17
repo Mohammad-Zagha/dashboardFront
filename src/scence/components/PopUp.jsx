@@ -39,7 +39,7 @@ export default function PopUp() {
 
   const fetchData = async () => {
     try {
-      console.log("Fetching From Popup");
+      
       const token = localStorage.getItem("token");
       const headers = {
         Authorization: `Bearer ${token}`, 
@@ -87,10 +87,13 @@ const {mutateAsync} = useAddClient();
     values.endDate=date2;
         const day1=dayjs(date1);
         const day2=dayjs(date2);
+        const today = dayjs(new Date());
         const diff=Math.floor(day2.diff(day1)/1000/60/60/24)
 
         if(diff>0)
         {
+          const diff2=Math.floor(today.diff(day1)/1000/60/60/24)
+          diff=diff-diff2
     const client={
       name:values.firstName,
       email:"test@gmail.com",
