@@ -19,7 +19,7 @@ import { useEditClient } from '../hooks/useClientMutation';
 const fetchData= async()=>{
  
   console.log("Fetching")
-  const response=await axios.get('https://13.49.44.225:4000/home/clients');
+  const response=await axios.get('https://app.gymadmindash.site/home/clients');
 
   if(response.statusText === "OK")
   {

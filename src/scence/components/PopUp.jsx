@@ -45,7 +45,7 @@ export default function PopUp() {
         Authorization: `Bearer ${token}`, 
       };
   
-      const response = await axios.get('https://13.49.44.225:4000/home/clients', {
+      const response = await axios.get('https://app.gymadmindash.site/home/clients', {
         headers,
       });
   

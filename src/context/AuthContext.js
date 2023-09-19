@@ -8,7 +8,7 @@ function AuthContextProvider(props) {
 
   async function getLoggedIn() {
     const token =localStorage.getItem("token")
-    const loggedInRes = await axios.get("https://13.49.44.225:4000/log/LoggedIn", {
+    const loggedInRes = await axios.get("https://app.gymadmindash.site/log/LoggedIn", {
       headers: {
         Authorization: `Bearer ${token}`, 
       },

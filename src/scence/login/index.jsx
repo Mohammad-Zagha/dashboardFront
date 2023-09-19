@@ -40,7 +40,7 @@ export default function SignInSide() {
     
     try {
       // Make the axios request
-      const response = await axios.post(`https://13.49.44.225:4000/log/login`, {
+      const response = await axios.post(`https://app.gymadmindash.site/log/login`, {
         email: data.get('email'),
         password: data.get('password'),
       });

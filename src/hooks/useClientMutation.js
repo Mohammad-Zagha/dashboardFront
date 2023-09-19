@@ -8,7 +8,7 @@ const addClientReq = async (client) => {
   
 
   try {
-    const response = await axios.post('https://13.49.44.225:4000/home/add', client, {
+    const response = await axios.post('https://app.gymadmindash.site/home/add', client, {
       headers: headers,
     });
   } catch (error) {
@@ -21,7 +21,7 @@ const editClientReq= async({obj,path})=>
 {
   if(path==="addSub")
   {
-   await axios.patch(`https://13.49.44.225:4000/home/${path}`,obj, {
+   await axios.patch(`https://app.gymadmindash.site/home/${path}`,obj, {
     headers: headers,
   })
   }
@@ -32,7 +32,7 @@ const editClientReq= async({obj,path})=>
      
       const status = obj.status
       
-     await axios.patch(`https://13.49.44.225:4000/home/${path}`,{name,status}, {
+     await axios.patch(`https://app.gymadmindash.site/home/${path}`,{name,status}, {
       headers: headers,
     })
     
@@ -45,7 +45,7 @@ const editClientReq= async({obj,path})=>
      
       const frozenDays = obj.frozenDays;
  
-     await axios.patch(`https://13.49.44.225:4000/home/${path}`,{name,frozenDays}, {
+     await axios.patch(`https://app.gymadmindash.site/home/${path}`,{name,frozenDays}, {
       headers: headers,
     })
     
@@ -56,7 +56,7 @@ const editClientReq= async({obj,path})=>
    
       const name = obj;
 
-     await axios.patch(`https://13.49.44.225:4000/home/${path}`,{name}, {
+     await axios.patch(`https://app.gymadmindash.site/home/${path}`,{name}, {
       headers: headers,
     })
     
@@ -65,7 +65,7 @@ const editClientReq= async({obj,path})=>
   if(path === "updateClientByName")
   {
     const updatedClient = obj;
-    await axios.patch(`https://13.49.44.225:4000/home/${path}`, updatedClient, {
+    await axios.patch(`https://app.gymadmindash.site/home/${path}`, updatedClient, {
       headers: headers,
     });
   }
